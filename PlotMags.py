@@ -9,7 +9,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn import linear_model, datasets
 
-df = pd.read_pickle('EM1000-sig1_75.pkl')
+df = pd.read_pickle('out.pkl')
 df = df[(df.MAG < 0) & (df.GMAG < 15)]
 df = df.reset_index(drop=True)
 
