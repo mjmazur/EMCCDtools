@@ -59,7 +59,7 @@ print(np.mean(b))
 
 plt.figure(figsize=(14,10))
 
-plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black', label='All Detections')
+plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
 
 plt.scatter(X[outlier_mask], y[outlier_mask], color='gold', marker='.', label='Outliers')
 plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='.', label='Inliers')
@@ -71,6 +71,9 @@ plt.ylim(-16,-4)
 plt.xlabel('GAIA G-band Magnitude', size=15)
 plt.ylabel('Instrumental Magnitude', size=15)
 plt.legend()
+
+plt.tight_layout()
+plt.savefig('IMag-vs-GMag-EMCCD.png', dpi=300)
 
 plt.show()
 
