@@ -59,7 +59,7 @@ print(np.mean(b))
 
 plt.figure(figsize=(14,10))
 
-plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
+# plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
 
 plt.scatter(X[outlier_mask], y[outlier_mask], color='gold', marker='.', label='Outliers')
 plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='.', label='Inliers')
