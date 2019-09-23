@@ -22,7 +22,7 @@ def getdata(RA,DEC,SR):
 
 warnings.filterwarnings('ignore')
 
-filname = 'test.cat'
+filename = 'test.cat'
 
 SR = 0.01 # Search Radius
 
