@@ -22,9 +22,9 @@ def getdata(RA,DEC,SR):
 
 warnings.filterwarnings('ignore')
 
-filname = '2F-EM200.cat'
+filname = 'test.cat'
 
-SR = 0.004 # Search Radius
+SR = 0.01 # Search Radius
 
 data = pd.read_csv(filename, delim_whitespace=True, skiprows=14)
 data.columns = ['Number','XWIN','YWIN','XWORLD','YWORLD','MAG','MAGERROR','FLUX','FLUXERROR','FLUXRADIUS','FWHM','BACKGROUND','RA','DEC']
