@@ -22,7 +22,7 @@ Gx = []
 Gy = []
 
 for i in range(len(df.index)):
-    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 10:
+    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 15:
         #print df.loc[i,'GMAG']
         X.append(df.loc[i,'GMAG'])
         y.append(df.loc[i,'MAG'])
@@ -66,8 +66,8 @@ plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='.', lab
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
 plt.xlim(4,15)
 plt.ylim(-16,-4)
-#plt.ylim(0,0.00000000001)
-plt.title('Instrumental Magnitude vs GAIA DR2 G Magnitude')
+# plt.ylim(0,0.00000000001)
+# plt.title('Instrumental Magnitude vs GAIA DR2 G Magnitude')
 plt.xlabel('GAIA G-band Magnitude', size=15)
 plt.ylabel('Instrumental Magnitude', size=15)
 plt.legend()
