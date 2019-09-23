@@ -22,15 +22,17 @@ def getdata(RA,DEC,SR):
 
 warnings.filterwarnings('ignore')
 
+filname = '2F-EM200.cat'
+
 SR = 0.004 # Search Radius
 
-data = pd.read_csv('2F-EM200.cat', delim_whitespace=True, skiprows=14)
+data = pd.read_csv(filename, delim_whitespace=True, skiprows=14)
 data.columns = ['Number','XWIN','YWIN','XWORLD','YWORLD','MAG','MAGERROR','FLUX','FLUXERROR','FLUXRADIUS','FWHM','BACKGROUND','RA','DEC']
 
 # print RA, DEC
 # print len(data.index)
 
-data['GMAG'] = 999
+data['GMAG'] = 99
 
 # print(data.MAG)
 
@@ -45,7 +47,7 @@ for i in range(len(data.index)):
     print(i)
 
 print('Pickling...')
-data.to_pickle('2F-200.pkl')
+data.to_pickle('out.pkl')
 print('Pickled...')
        
 #print (gdata['phot_g_mean_mag'])
