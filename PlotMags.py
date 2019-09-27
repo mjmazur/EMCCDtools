@@ -25,7 +25,7 @@ Gx = []
 Gy = []
 
 for i in range(len(df.index)):
-    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 15:
+    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 9:
         #print df.loc[i,'GMAG']
         X.append(df.loc[i,'GMAG'])
         y.append(df.loc[i,'MAG'])
