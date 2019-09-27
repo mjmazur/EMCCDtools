@@ -10,6 +10,40 @@ import sys
 from matplotlib import pyplot as plt
 from sklearn import linear_model, datasets
 
+def runRANSAC(df,maglimit):
+    X = []
+    y = []
+    Gx = []
+    Gy = []
+
+    for i in range(len(df.index)):
+        if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < maglimit:
+            #print df.loc[i,'GMAG']
+            X.append(df.loc[i,'GMAG'])
+            y.append(df.loc[i,'MAG'])
+            Gx.append(df.loc[i,'RA'])
+            Gy.append(df.loc[i,'DEC'])
+
+    X = np.reshape(X,(-1,1))
+    y = np.reshape(y,(-1,1))
+
+    line_y_ransac_tmp = []
+    line_X = np.arange(X.min(), X.max())[:, np.newaxis]
+
+    for i in range(200):
+        # Robustly fit linear model with RANSAC algorithm
+        ransac = linear_model.RANSACRegressor(residual_threshold=0.5, stop_probability=0.9999)
+        ransac.fit(X, y)
+        inlier_mask = ransac.inlier_mask_
+        outlier_mask = np.logical_not(inlier_mask)
+        line_y_ransac = ransac.predict(line_X)
+        line_y_ransac_tmp.append(line_y_ransac)
+
+    line_y_ransac = np.mean(line_y_ransac_tmp,axis=0)
+
+    return X, y, line_y_ransac, line_X, inlier_mask, outlier_mask
+    # Predict data of estimated models
+
 pklfile = sys.argv[1]
 
 df = pd.read_pickle(pklfile)
@@ -19,36 +53,7 @@ df = df.reset_index(drop=True)
 #for i in range(len(df.index)):
 #    print(df.loc[i,'FLUX'], df.loc[i,'MAG'], df.loc[i,'GMAG'])
 
-X = []
-y = []
-Gx = []
-Gy = []
-
-for i in range(len(df.index)):
-    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 9:
-        #print df.loc[i,'GMAG']
-        X.append(df.loc[i,'GMAG'])
-        y.append(df.loc[i,'MAG'])
-        Gx.append(df.loc[i,'RA'])
-        Gy.append(df.loc[i,'DEC'])
-
-X = np.reshape(X,(-1,1))
-y = np.reshape(y,(-1,1))
-
-line_y_ransac_tmp = []
-line_X = np.arange(X.min(), X.max())[:, np.newaxis]
-
-for i in range(200):
-    # Robustly fit linear model with RANSAC algorithm
-    ransac = linear_model.RANSACRegressor(residual_threshold=0.2, stop_probability=0.9999)
-    ransac.fit(X, y)
-    inlier_mask = ransac.inlier_mask_
-    outlier_mask = np.logical_not(inlier_mask)
-    line_y_ransac = ransac.predict(line_X)
-    line_y_ransac_tmp.append(line_y_ransac)
-
-line_y_ransac = np.mean(line_y_ransac_tmp,axis=0)
-# Predict data of estimated models
+X, y, line_y_ransac, line_X, inlier_mask, outlier_mask = runRANSAC(df, 9)
 
 
 mR = (line_y_ransac[len(line_y_ransac)-1]-line_y_ransac[0]) / (line_X[len(line_X)-1]-line_X[0])
