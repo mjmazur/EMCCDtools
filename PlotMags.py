@@ -25,7 +25,7 @@ Gx = []
 Gy = []
 
 for i in range(len(df.index)):
-    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 9:
+    if df.loc[i,'GMAG'] > 0 and df.loc[i,'GMAG'] < 15:
         #print df.loc[i,'GMAG']
         X.append(df.loc[i,'GMAG'])
         y.append(df.loc[i,'MAG'])
@@ -40,7 +40,7 @@ line_X = np.arange(X.min(), X.max())[:, np.newaxis]
 
 for i in range(200):
     # Robustly fit linear model with RANSAC algorithm
-    ransac = linear_model.RANSACRegressor(residual_threshold=0.5, stop_probability=0.9999)
+    ransac = linear_model.RANSACRegressor(residual_threshold=1, stop_probability=0.9999)
     ransac.fit(X, y)
     inlier_mask = ransac.inlier_mask_
     outlier_mask = np.logical_not(inlier_mask)
