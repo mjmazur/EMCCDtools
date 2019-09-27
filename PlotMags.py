@@ -70,8 +70,9 @@ plt.figure(figsize=(14,10))
 
 # plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
 
-plt.scatter(X[outlier_mask15], y[outlier_mask15], color='gold', marker='o', edgecolors='black', label='Outliers')
-plt.scatter(X[inlier_mask15], y[inlier_mask15], color='yellowgreen', marker='o', edgecolors='black', label='Inliers')
+plt.scatter(df.GMAG, df.MAG)
+plt.scatter(X[outlier_mask], y[outlier_mask], color='gold', marker='o', edgecolors='black', label='Outliers')
+plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='o', edgecolors='black', label='Inliers')
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
 plt.xlim(4,15)
 plt.ylim(-16,-4)
