@@ -6,10 +6,13 @@
 
 import numpy as np
 import pandas as pd
+import sys
 from matplotlib import pyplot as plt
 from sklearn import linear_model, datasets
 
-df = pd.read_pickle('out.pkl')
+pklfile = sys.argv[1]
+
+df = pd.read_pickle(pklfile)
 df = df[(df.MAG < 0) & (df.GMAG < 15)]
 df = df.reset_index(drop=True)
 
