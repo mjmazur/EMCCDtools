@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #import numpy as np
 #from astroquery.gaia import Gaia
 import warnings
-#import os, sys
+import sys
 import pandas as pd
 
 def getdata(RA,DEC,SR):
@@ -22,7 +22,8 @@ def getdata(RA,DEC,SR):
 
 warnings.filterwarnings('ignore')
 
-filename = 'test.cat'
+# filename = 'test.cat'
+filename = sys.argv[1]
 
 SR = 0.01 # Search Radius
 
@@ -58,8 +59,12 @@ print('Plotting figure...')
 plt.figure(figsize=(14,10))
 
 plt.scatter(data['GMAG'],data['MAG'])
+plt.xlabel('GAIA DR2 G-band Magnitude', size=15)
+plt.ylabel('Instrumental Magnitude', size=15)
 plt.xlim(5,13)
 plt.ylim(-15,-5)
+plt.tight_layout()
+plt.savefig('Imag-vs-Gmag.png', dpi=300)
 
 plt.show()
 
