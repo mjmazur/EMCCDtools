@@ -50,6 +50,8 @@ df = pd.read_pickle(pklfile)
 df = df[(df.MAG < 0) & (df.GMAG < 15)]
 df = df.reset_index(drop=True)
 
+df.to_csv('./file.txt', sep=' ')
+
 #for i in range(len(df.index)):
 #    print(df.loc[i,'FLUX'], df.loc[i,'MAG'], df.loc[i,'GMAG'])
 
