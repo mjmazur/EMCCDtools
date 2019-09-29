@@ -32,7 +32,7 @@ def runRANSAC(df, maglimit, iterations):
 
     for i in range(iterations):
         # Robustly fit linear model with RANSAC algorithm
-        ransac = linear_model.RANSACRegressor(residual_threshold=0.5, stop_probability=0.9999)
+        ransac = linear_model.RANSACRegressor(residual_threshold=1.0, stop_probability=0.9999)
         ransac.fit(X, y)
         inlier_mask = ransac.inlier_mask_
         outlier_mask = np.logical_not(inlier_mask)
