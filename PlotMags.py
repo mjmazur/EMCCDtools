@@ -32,7 +32,7 @@ def runRANSAC(df, maglimit, iterations):
 
     for i in range(iterations):
         # Robustly fit linear model with RANSAC algorithm
-        ransac = linear_model.RANSACRegressor(residual_threshold=1.0, stop_probability=0.9999)
+        ransac = linear_model.RANSACRegressor(residual_threshold=0.5, stop_probability=0.9999)
         ransac.fit(X, y)
         inlier_mask = ransac.inlier_mask_
         outlier_mask = np.logical_not(inlier_mask)
@@ -80,7 +80,7 @@ plt.scatter(X[outlier_mask], y[outlier_mask], color='gold', marker='o', edgecolo
 plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='o', edgecolors='black', label='RANSAC Inliers')
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
 plt.plot(x2,y2)
-plt.xlim(0,14)
+plt.xlim(2,14)
 plt.ylim(-14,0)
 # plt.ylim(0,0.00000000001)
 # plt.title('Instrumental Magnitude vs GAIA DR2 G Magnitude')
