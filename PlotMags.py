@@ -55,7 +55,7 @@ df.to_csv('./file.txt', sep=' ')
 #for i in range(len(df.index)):
 #    print(df.loc[i,'FLUX'], df.loc[i,'MAG'], df.loc[i,'GMAG'])
 
-X, y, line_y_ransac, line_X, inlier_mask, outlier_mask = runRANSAC(df, 9, 100)
+X, y, line_y_ransac, line_X, inlier_mask, outlier_mask = runRANSAC(df, 12, 100)
 X15, y15, line_y_ransac15, line_X15, inlier_mask15, outlier_mask15 = runRANSAC(df, 15, 100)
 
 
@@ -81,7 +81,7 @@ plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='o', edg
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
 plt.plot(x2,y2)
 plt.xlim(4,15)
-plt.ylim(-16,-4)
+plt.ylim(-16,0)
 # plt.ylim(0,0.00000000001)
 # plt.title('Instrumental Magnitude vs GAIA DR2 G Magnitude')
 plt.xlabel('GAIA G-band Magnitude', size=15)
