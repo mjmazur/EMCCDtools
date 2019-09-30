@@ -47,7 +47,7 @@ def runRANSAC(df, maglimit, iterations):
 pklfile = sys.argv[1]
 
 df = pd.read_pickle(pklfile)
-df = df[(df.MAG < 0) & (df.GMAG < 15)]
+df = df[(df.MAG < 0) & (df.GMAG < 18)]
 df = df.reset_index(drop=True)
 
 df.to_csv('./file.txt', sep=' ')
