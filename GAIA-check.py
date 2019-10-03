@@ -51,6 +51,7 @@ print('Pickling...')
 data.to_pickle('out.pkl')
 print('Pickled...')
        
+
 #print (gdata['phot_g_mean_mag'])
 #print data.loc[0,'MAG']
 
