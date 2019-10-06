@@ -55,7 +55,7 @@ df.to_csv('./file.txt', sep=' ')
 #for i in range(len(df.index)):
 #    print(df.loc[i,'FLUX'], df.loc[i,'MAG'], df.loc[i,'GMAG'])
 
-X, y, line_y_ransac, line_X, inlier_mask, outlier_mask = runRANSAC(df, 9, 100)
+X, y, line_y_ransac, line_X, inlier_mask, outlier_mask = runRANSAC(df, 6, 100)
 X15, y15, line_y_ransac15, line_X15, inlier_mask15, outlier_mask15 = runRANSAC(df, 14, 100)
 
 
