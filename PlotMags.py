@@ -81,7 +81,7 @@ plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='o', edg
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
 plt.plot(x2,y2)
 plt.xlim(2,14)
-plt.ylim(-14,0)
+#plt.ylim(-14,0)
 # plt.ylim(0,0.00000000001)
 # plt.title('Instrumental Magnitude vs GAIA DR2 G Magnitude')
 plt.xlabel('GAIA G-band Magnitude', size=15)
