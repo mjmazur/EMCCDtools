@@ -18,7 +18,7 @@ motionlimit = 2 # Minimum motion (pixels) per frame
 
 psize = []
 for i in range(hsteps+1):
-	psize.append(math.atan((2*np.pi/360)*pangsize/3600)*h[i]*2*1000) # size of pixel on sky at range h. In meters.
+	psize.append(math.tan((2*np.pi/360)*pangsize/(2*3600))*h[i]*2*1000) # size of pixel on sky at range h. In meters.
 
 traillength = np.zeros((vsteps+1,hsteps+1)) # rows = height list, columns = speed list
 
@@ -34,7 +34,7 @@ print(np.shape(traillength))
 
 angrate = np.zeros((vsteps+1,hsteps+1))
 
-entryangle = 10
+entryangle = 90
 
 for i in range(vsteps+1):
 	for j in range(hsteps+1):
@@ -48,15 +48,15 @@ fig, ax = plt.subplots(2, figsize=(8,8))
 
 for i in range(int(hsteps/2)+1):
 	i = i*2
-	ax[0].plot(angrate[:,0],traillength[:,i])
+	ax[0].plot(v,traillength[:,i])
 	ax[0].text(72.5,max(traillength[:,i]-0.5),str(int(h[i])) + ' km', size=8)
 
-#ax[0].set_xlim(0,72)
+ax[0].set_xlim(0,72)
 ax[0].set_ylim(0,max(traillength[:,0]))
 ax[0].plot((min(v),max(v)),(motionlimit,motionlimit), linestyle='--', color='black', label='Motion threshold')
 ax[0].plot((11.2,11.2),(0,max(traillength[:,0])), linestyle=':', color='black', label='11.2 km/s')
 ax[0].set_xlabel('Speed (km/s)', size=15)
-ax[0].set_ylabel('Trail length (pixels/frame', size=15)
+ax[0].set_ylabel('Trail length (pixels/frame)', size=15)
 
 ax[0].legend(loc='upper left')
 

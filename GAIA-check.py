@@ -25,7 +25,7 @@ warnings.filterwarnings('ignore')
 # filename = 'test.cat'
 filename = sys.argv[1]
 
-SR = 0.1 # Search Radius
+SR = 0.05 # Search Radius
 
 data = pd.read_csv(filename, delim_whitespace=True, skiprows=14)
 data.columns = ['Number','XWIN','YWIN','XWORLD','YWORLD','MAG','MAGERROR','FLUX','FLUXERROR','FLUXRADIUS','FWHM','BACKGROUND','RA','DEC']
