@@ -46,6 +46,7 @@ for i in range(len(data.index)):
     if len(gdata) > 0:
         data.loc[i,'GMAG'] = gdata[0]['phot_g_mean_mag']
     print(i)
+    data.to_pickle('out.pkl')
 
 print('Pickling...')
 data.to_pickle('out.pkl')
