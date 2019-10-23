@@ -28,13 +28,17 @@ angle = 90
 
 for i in range(vsteps+1):
 	for j in range(hsteps+1):
-		traillength[i,j] = (v[i]*1000/psize[j] / framerate)*np.sin((2*np.pi/360)*angle)
+		traillength[i,j] = ((v[i]*1000*np.sin((2*np.pi/360)*angle)/(psize[j] * framerate )))
 
 trailat100km = np.zeros((vsteps+1,asteps+1))
 
+rcangle = 90 # Angle relative to row/column
+if rcangle > 45:
+	rcangle = 90-rcangle
+
 for i in range(vsteps+1):
 	for j in range(asteps+1):
-		trailat100km[i,j] = (v[i]*1000/(math.tan((2*np.pi/360)*pangsize/(2*3600))*100*2*1000) / framerate)*np.sin((2*np.pi/360)*a[j])
+		trailat100km[i,j] = (v[i]*1000/(math.tan((2*np.pi/360)*pangsize/(2*3600))*100*2*1000) / framerate * np.cos((2*np.pi/360)*rcangle))*np.sin((2*np.pi/360)*a[j])
 
 # Above calculates for a meteor that is orthogonal to the look direction. A real meteor will
 # typically not move orthogonal to the camera look direction. To deal with this, we need to
@@ -75,7 +79,7 @@ for i in range(vsteps+1):
 		ax[1].text(130.5,min(traillength[i,:]-0.5),str(v[i]) + ' km/s', size=8)
 
 ax[1].set_xlim(70,130)
-ax[1].plot((min(h),max(h)),(motionlimit,motionlimit), linestyle='--', color='black', label='Motion threshold')
+ax[1].plot((min(h),max(h)),(motionlimit,motionlimit), linestyle='--', color='black', label=str(motionlimit) + ' Pixel Threshold')
 ax[1].set_xlabel('Range (km)', size=15)
 ax[1].set_ylabel('Trail length (pixels/frame)', size=15)
 

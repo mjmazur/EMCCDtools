@@ -33,7 +33,9 @@ data.columns = ['Number','XWIN','YWIN','XWORLD','YWORLD','MAG','MAGERROR','FLUX'
 # print RA, DEC
 # print len(data.index)
 
+data['BMAG'] = 99
 data['GMAG'] = 99
+data['RMAG'] = 99
 
 # print(data.MAG)
 
@@ -44,7 +46,9 @@ for i in range(len(data.index)):
     DEC = data.loc[i,'DEC']
     gdata = getdata(RA,DEC,SR)
     if len(gdata) > 0:
+        data.loc[i,'BMAG'] = gdata[0]['phot_bp_mean_mag']
         data.loc[i,'GMAG'] = gdata[0]['phot_g_mean_mag']
+        data.loc[i,'RMAG'] = gdata[0]['phot_rp_mean_mag']
     print(i)
     data.to_pickle('out.pkl')
 
