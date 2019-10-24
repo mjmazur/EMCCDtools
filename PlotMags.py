@@ -79,7 +79,7 @@ def res(params, imag, ci, pmag):
 
 result = scipy.optimize.minimize(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,1)), args=(imag,ci,pmag))
 
-print(result.x)
+print(result.x[0])
 
 
 
