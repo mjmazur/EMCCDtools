@@ -77,6 +77,8 @@ def res(params, imag, ci, pmag):
 
 result = scipy.optimize.leastsq(res, x0=(1,1), args=(imag,ci,pmag))
 
+print(result)
+
 
 
 
