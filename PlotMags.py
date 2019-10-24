@@ -66,7 +66,7 @@ imag = np.array([10.173, 11.649, 11.154, 11.819])
 pmag = np.array([11.721, 13.270, 13.231, 14.281])
 # imag = 10.173
 # pmag = 11.721
-ci = 0.458
+ci = np.array([0.458, 0.481, 0.804, 1.096])
 
 def magcalc(params):
     cmag = imag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
