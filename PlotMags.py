@@ -79,6 +79,8 @@ def res(params, imag, ci, pmag):
     residual = np.subtract(pmag,cmag) # pmag = photometric mag
     stddev = np.std(residual)
     print(np.std(residual))
+    print(cmag)
+    print(residual)
     # return(abs(stddev))
     return abs(residual)
 
