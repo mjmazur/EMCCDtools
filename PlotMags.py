@@ -85,8 +85,8 @@ def res(params, imag, ci, pmag):
     return abs(residual)
 
 result = scipy.optimize.minimize(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
-for i in range(5):
-    result = scipy.optimize.minimize(res, x0=(result.x[0],result.x[1]), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
+# for i in range(5):
+#     result = scipy.optimize.minimize(res, x0=(result.x[0],result.x[1]), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
 
 print(result)
 
