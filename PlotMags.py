@@ -62,8 +62,8 @@ BmR = df.BMAG - df.RMAG
 BmG = df.BMAG - df.GMAG
 GmR = df.GMAG - df.RMAG
 
-imag = [10.173, 11.649, 11.154, 11.819]
-pmag = [11.721, 13.270, 13.231, 14.281]
+imag = np.array([10.173, 11.649, 11.154, 11.819])
+pmag = np.array([11.721, 13.270, 13.231, 14.281])
 # imag = 10.173
 # pmag = 11.721
 ci = 0.458
