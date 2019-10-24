@@ -93,6 +93,11 @@ plt.savefig('IMag-vs-GMag-EMCCD.png', dpi=300)
 
 plt.show()
 
+plt.figure(figsize=(14,10))
+
+plt.scatter(df.GMAG-df.RMAG, df.MAG, color='black', marker='o', label='All Data')
+
+plt.show()
 
 # In[ ]:
 
