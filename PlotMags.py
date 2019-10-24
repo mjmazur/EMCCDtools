@@ -47,9 +47,10 @@ def runRANSAC(df, maglimit, iterations):
 pklfile = sys.argv[1]
 
 df = pd.read_pickle(pklfile)
-df['BmG'] = 99
+
+df['BmG'] = df.BMAG - df.GMAG
 df['BmR'] = df.BMAG - df.RMAG
-df['GmR'] = 99
+df['GmR'] = df.GMAG - df.RMAG
 
 BmR = df.BMAG - df.RMAG
 BmG = df.BMAG - df.GMAG
@@ -105,7 +106,7 @@ plt.show()
 
 plt.figure(figsize=(14,10))
 
-plt.scatter(BmR, df.MAG, color='blue', marker='o', label='All Data')
+plt.scatter(df.BmR, df.MAG, color='blue', marker='o', label='All Data')
 plt.scatter(GmR, df.MAG, color='red', marker='o', label='All Data')
 plt.scatter(BmG, df.MAG, color='green', marker='o', label='All Data')
 
