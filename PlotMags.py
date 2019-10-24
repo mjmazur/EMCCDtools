@@ -99,9 +99,9 @@ plt.show()
 
 plt.figure(figsize=(14,10))
 
-plt.scatter(BmR, df.MAG, color='blue', marker='o', size=5, label='All Data')
-plt.scatter(GmR, df.MAG, color='red', marker='o', size = 3, label='All Data')
-plt.scatter(BmG, df.MAG, color='green', marker='o', size=1, label='All Data')
+plt.scatter(BmR, df.MAG, color='blue', marker='o', label='All Data')
+plt.scatter(GmR, df.MAG, color='red', marker='o', label='All Data')
+plt.scatter(BmG, df.MAG, color='green', marker='o', label='All Data')
 
 plt.show()
 
