@@ -74,7 +74,7 @@ def res(params):
     cmag = magcalc(params)
     return pmag - cmag # pmag = photometric mag
 
-result = scipy.optimize.leastsq(res, x0=(1.5,0.8) )
+result = scipy.optimize.leastsq(res, x0=(1,1) )
 
 
 
