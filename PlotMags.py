@@ -72,7 +72,7 @@ def magcalc(params):
 
 def res(params, imag, ci, pmag):
     # cmag = magcalc(params)
-    cmag = imag + params[0]*ci + params[1]
+    cmag = imag + params[0]*ci + params[0]
     return pmag - cmag # pmag = photometric mag
 
 result = scipy.optimize.leastsq(res, x0=(1,1), args=(imag,ci,pmag))
