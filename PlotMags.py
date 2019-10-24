@@ -74,8 +74,8 @@ def magcalc(params):
 
 def res(params, imag, ci, pmag):
     # cmag = magcalc(params)
-    cmag = imag + params[0]*ci + params[1]
-    residual = pmag - cmag # pmag = photometric mag
+    cmag = np.add(imag,params[0]*ci) + params[1]
+    residual = np.subtract(pmag,cmag) # pmag = photometric mag
     stddev = np.std(residual)
     print(np.std(residual))
     return(abs(stddev))
