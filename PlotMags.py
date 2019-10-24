@@ -76,7 +76,9 @@ def res(params, imag, ci, pmag):
     # cmag = magcalc(params)
     cmag = imag + params[0]*ci + params[1]
     residual = pmag - cmag # pmag = photometric mag
-    print(residual)
+    stddev = np.std(residual)
+    print(np.std(residual))
+    return(stddev)
 
 result = scipy.optimize.minimize(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,1)), args=(imag,ci,pmag))
 
