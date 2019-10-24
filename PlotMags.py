@@ -71,6 +71,8 @@ y2 = mR*x2 + bR
 
 #plt.scatter(Gx, Gy, color='r', alpha=0.3)
 
+BmR = df.BMAG - df.RMAG
+
 plt.figure(figsize=(14,10))
 
 # plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
@@ -95,7 +97,7 @@ plt.show()
 
 plt.figure(figsize=(14,10))
 
-plt.scatter(df.GMAG-df.RMAG, df.MAG, color='black', marker='o', label='All Data')
+plt.scatter(BmR, df.MAG, color='black', marker='o', label='All Data')
 
 plt.show()
 

@@ -74,3 +74,4 @@ plt.savefig('Imag-vs-Gmag.png', dpi=300)
 
 plt.show()
 
+
