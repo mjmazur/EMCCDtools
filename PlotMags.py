@@ -70,7 +70,7 @@ def magcalc(params):
     cmag = imag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
     return cmag
 
-def res(params):
+def res(params, args):
     # cmag = magcalc(params)
     cmag = imag + params[0]*ci + params[1]
     return pmag - cmag # pmag = photometric mag
