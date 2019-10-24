@@ -7,6 +7,7 @@
 import numpy as np
 import pandas as pd
 import sys
+import scipy
 from matplotlib import pyplot as plt
 from sklearn import linear_model, datasets
 
@@ -52,14 +53,32 @@ df['BmG'] = df.BMAG - df.GMAG
 df['BmR'] = df.BMAG - df.RMAG
 df['GmR'] = df.GMAG - df.RMAG
 
-BmR = df.BMAG - df.RMAG
-BmG = df.BMAG - df.GMAG
-GmR = df.GMAG - df.RMAG
-
 # df = df[(df.MAG < 0) & (df.GMAG < 14)]
 df = df.reset_index(drop=True)
 
 df.to_csv('./file.txt', sep=' ')
+
+BmR = df.BMAG - df.RMAG
+BmG = df.BMAG - df.GMAG
+GmR = df.GMAG - df.RMAG
+
+iMag = 10.721
+ci = 0.458
+
+def magcalc(params):
+    cmag = imag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
+    return cmag
+
+def res(params):
+    magcalc(params)
+    return pmag - cmag # pmag = photometric mag
+
+result = scipy.optimize.leastsq(res, x0=(1.5,0.8) )
+
+
+
+
+
 
 #for i in range(len(df.index)):
 #    print(df.loc[i,'FLUX'], df.loc[i,'MAG'], df.loc[i,'GMAG'])
