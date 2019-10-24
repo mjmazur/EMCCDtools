@@ -62,8 +62,8 @@ BmR = df.BMAG - df.RMAG
 BmG = df.BMAG - df.GMAG
 GmR = df.GMAG - df.RMAG
 
-imag = 10.173
-pmag = 11.721
+imag = [10.173, 11.649, 11.154, 11.819]
+pmag = [11.721, 13.270, 13.231, 14.281]
 ci = 0.458
 
 def magcalc(params):
@@ -72,7 +72,7 @@ def magcalc(params):
 
 def res(params, imag, ci, pmag):
     # cmag = magcalc(params)
-    cmag = imag + params[0]*ci + params[0]
+    cmag = imag + params[0]*ci + params[1]
     return pmag - cmag # pmag = photometric mag
 
 result = scipy.optimize.leastsq(res, x0=(1,1), args=(imag,ci,pmag))
