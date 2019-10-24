@@ -62,12 +62,11 @@ BmR = df.BMAG - df.RMAG
 BmG = df.BMAG - df.GMAG
 GmR = df.GMAG - df.RMAG
 
-
+iMag = 10.721
+ci = 0.458
 
 def magcalc(params):
-    iMag = 10.721
-    ci = 0.458
-    cmag = imag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
+    cmag = iMag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
     return cmag
 
 def res(params):
