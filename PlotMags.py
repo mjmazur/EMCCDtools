@@ -80,7 +80,7 @@ def res(params, imag, ci, pmag):
     print(np.std(residual))
     return(abs(stddev))
 
-result = scipy.optimize.minimize(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
+result = scipy.optimize.leastsq(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
 
 print(result)
 
