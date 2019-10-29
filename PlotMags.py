@@ -76,41 +76,41 @@ GmR = df.GMAG - df.RMAG
 # ci = np.array([0.458, 0.481, 0.804, 1.096, 1.484, 0.932, 1.187, 1.208, 2.394, 1.770, 0.831, 0.748])
 # ci = 0.458
 
-imag = -1*df['MAG'][0:10].to_numpy()
-pmag = df['GMAG'][0:10].to_numpy()
-ci = df['GmR'][0:10].to_numpy()
+# imag = -1*df['MAG'][0:10].to_numpy()
+# pmag = df['GMAG'][0:10].to_numpy()
+# ci = df['GmR'][0:10].to_numpy()
 
-print(ci)
-print(type(ci))
+# print(ci)
+# print(type(ci))
 
-def magcalc(params):
-    tprime, zprime = params
-    cmag = np.add(imag,tprime*ci) + zprime # cmag = calculated mag, ci = colour index
-    return cmag
+# def magcalc(params):
+#     tprime, zprime = params
+#     cmag = np.add(imag,tprime*ci) + zprime # cmag = calculated mag, ci = colour index
+#     return cmag
 
-def con(params):
-    cmag = magcalc(params)
-    residual = np.subtract(pmag,cmag)
-    # print(np.mean(residual))
-    return np.mean(residual)
+# def con(params):
+#     cmag = magcalc(params)
+#     residual = np.subtract(pmag,cmag)
+#     # print(np.mean(residual))
+#     return np.mean(residual)
 
-def res(params, imag, ci, pmag):
-    cmag = magcalc(params)
-    residual = np.subtract(pmag,cmag) # pmag = photometric mag
-    stddev = np.std(residual)
-    return stddev
+# def res(params, imag, ci, pmag):
+#     cmag = magcalc(params)
+#     residual = np.subtract(pmag,cmag) # pmag = photometric mag
+#     stddev = np.std(residual)
+#     return stddev
 
-cons = {'type':'eq', 'fun': con}
+# cons = {'type':'eq', 'fun': con}
 
-result = optimize.minimize(res, (1.5,0.8), method='COBYLA', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
+# result = optimize.minimize(res, (1.5,0.8), method='Powell', constraints=cons, bounds=((0,2),(0,2)), args=(imag,ci,pmag))
 
-print(result)
+# print(result)
 
-print(ci[0], imag[0], pmag[0])
+# print(ci[0], imag[0], pmag[0])
 
-newmag = imag + result.x[0]*ci + result.x[1]
-print(newmag)
-print(pmag)
+# newmag = imag + result.x[0]*ci + result.x[1]
+# print(newmag)
+# print(pmag)
 
 # print(newmag - pmag)
 
