@@ -50,7 +50,7 @@ for i in range(len(data.index)):
         data.loc[i,'GMAG'] = gdata[0]['phot_g_mean_mag']
         data.loc[i,'RMAG'] = gdata[0]['phot_rp_mean_mag']
     print(i)
-    data.to_pickle('out.pkl')
+    # data.to_pickle('out.pkl')
 
 print('Pickling...')
 data.to_pickle('out.pkl')

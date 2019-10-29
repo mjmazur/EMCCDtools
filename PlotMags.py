@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import sys
 import scipy
+import scipy.optimize as optimize
 from matplotlib import pyplot as plt
 from sklearn import linear_model, datasets
 
@@ -45,9 +46,14 @@ def runRANSAC(df, maglimit, iterations):
     return X, y, line_y_ransac, line_X, inlier_mask, outlier_mask
     # Predict data of estimated models
 
-pklfile = sys.argv[1]
+if len(sys.argv) > 1:
+    pklfile = sys.argv[1]
+else:
+    pklfile = 'out.pkl'
 
 df = pd.read_pickle(pklfile)
+
+df = df[df.MAG != 99.0]
 
 df['BmG'] = df.BMAG - df.GMAG
 df['BmR'] = df.BMAG - df.RMAG
@@ -62,36 +68,51 @@ BmR = df.BMAG - df.RMAG
 BmG = df.BMAG - df.GMAG
 GmR = df.GMAG - df.RMAG
 
-# imag = np.array([10.173, 11.649, 11.154, 11.819, 10.779, 11.02, 9.882, 10.161])
-# pmag = np.array([11.721, 13.270, 13.231, 14.281, 13.833, 13.347, 12.362, 12.750])
-imag = 10.173
-pmag = 11.721
-# ci = np.array([0.458, 0.481, 0.804, 1.096, 1.484, 0.932, 1.187, 1.208])
-ci = 0.458
+
+# imag = np.array([10.173, 11.649, 11.154, 11.819, 10.779, 11.02, 9.882, 10.161, 12.119, 12.969, 12.559, 12.655])
+# pmag = np.array([11.721, 13.270, 13.231, 14.281, 13.833, 13.347, 12.362, 12.750, 17.230, 16.730, 14.673, 14.681])
+# imag = 10.173
+# pmag = 11.721
+# ci = np.array([0.458, 0.481, 0.804, 1.096, 1.484, 0.932, 1.187, 1.208, 2.394, 1.770, 0.831, 0.748])
+# ci = 0.458
+
+imag = -1*df['MAG'][0:10].to_numpy()
+pmag = df['GMAG'][0:10].to_numpy()
+ci = df['GmR'][0:10].to_numpy()
+
+print(ci)
+print(type(ci))
 
 def magcalc(params):
-    cmag = imag + params[0]*ci + params[1] # cmag = calculated mag, ci = colour index
+    tprime, zprime = params
+    cmag = np.add(imag,tprime*ci) + zprime # cmag = calculated mag, ci = colour index
     return cmag
 
+def con(params):
+    cmag = magcalc(params)
+    residual = np.subtract(pmag,cmag)
+    # print(np.mean(residual))
+    return np.mean(residual)
+
 def res(params, imag, ci, pmag):
-    # cmag = magcalc(params)
-    cmag = np.add(imag,params[0]*ci) + params[1]
+    cmag = magcalc(params)
     residual = np.subtract(pmag,cmag) # pmag = photometric mag
     stddev = np.std(residual)
-    print(np.std(residual))
-    print(cmag)
-    print(residual)
-    # return(abs(stddev))
-    return abs(residual)
+    return stddev
 
-result = scipy.optimize.minimize(res, x0=(1.5,0.8), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
-# for i in range(5):
-#     result = scipy.optimize.minimize(res, x0=(result.x[0],result.x[1]), method='SLSQP', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
+cons = {'type':'eq', 'fun': con}
+
+result = optimize.minimize(res, (1.5,0.8), method='COBYLA', bounds=((0,2),(0,2)), args=(imag,ci,pmag))
 
 print(result)
 
+print(ci[0], imag[0], pmag[0])
 
+newmag = imag + result.x[0]*ci + result.x[1]
+print(newmag)
+print(pmag)
 
+# print(newmag - pmag)
 
 
 
@@ -104,10 +125,10 @@ X15, y15, line_y_ransac15, line_X15, inlier_mask15, outlier_mask15 = runRANSAC(d
 
 mR = (line_y_ransac[len(line_y_ransac)-1]-line_y_ransac[0]) / (line_X[len(line_X)-1]-line_X[0])
 bR = line_y_ransac[0]-mR*line_X[0]
-print(mR, bR)
+# print(mR, bR)
 
 b = y-X
-print(np.mean(b))
+# print(np.mean(b))
 
 x2 = np.linspace(0,15,100)
 y2 = mR*x2 + bR
