@@ -142,6 +142,8 @@ plt.figure(figsize=(14,10))
 # plt.scatter(df['GMAG'],df['MAG'], marker='o', color='black')
 
 plt.scatter(df.GMAG, df.MAG, color='black', marker='o', label='All Data')
+plt.scatter(df.RMAG, df.MAG, color='red', marker='o', label='All Data')
+plt.scatter(df.BMAG, df.MAG, color='blue', marker='o', label='All Data')
 plt.scatter(X[outlier_mask], y[outlier_mask], color='gold', marker='o', edgecolors='black', label='RANSAC Outliers')
 plt.scatter(X[inlier_mask], y[inlier_mask], color='yellowgreen', marker='o', edgecolors='black', label='RANSAC Inliers')
 plt.plot(line_X, line_y_ransac, color='cornflowerblue', linewidth=2, label='y={0:0.2f}'.format(mR[0]) + '*' + r'M$_\mathrm{G}$' + ' + {0:0.2f}'.format(bR[0]) + ' (RANSAC)')
